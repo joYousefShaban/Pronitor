@@ -52,12 +52,13 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(104, 45);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Add Processes";
+            this.button1.Text = "Add Task";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // dataGridView
             // 
+            this.dataGridView.AllowUserToOrderColumns = true;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
@@ -68,11 +69,10 @@
             this.Column6});
             this.dataGridView.Location = new System.Drawing.Point(247, 56);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(643, 393);
             this.dataGridView.TabIndex = 0;
-            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick);
+            //this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick);
             this.dataGridView.VisibleChanged += new System.EventHandler(this.DataGridView_VisibleChanged);
             // 
             // label1
@@ -94,9 +94,9 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(104, 45);
             this.button3.TabIndex = 10;
-            this.button3.Text = "Inactive / Kill\r\nAll Processes";
+            this.button3.Text = "Inactive / Kill\r\nAll Tasks";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            //this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -138,12 +138,12 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "CheckLog";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            //this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Status";
-            this.Column1.MinimumWidth = 50;
+            this.Column1.MinimumWidth = 60;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -152,7 +152,7 @@
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "Process Name";
+            this.Column2.HeaderText = "Task Name";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             this.Column2.Width = 105;
@@ -206,6 +206,7 @@
             this.Controls.Add(this.label1);
             this.Name = "MainMenu";
             this.Text = "Pronitor";
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

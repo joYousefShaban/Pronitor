@@ -5,17 +5,27 @@ namespace Pronitor.Logic
 {
     static class Manager
     {
-        static List<Monitor> monitoringList = new List<Monitor>();
-        public static bool Validator(string name, int lifeTime, int frequency)
+        private static List<Monitor> monitoringList = new List<Monitor>();
+
+        internal static List<Monitor> MonitoringList { get => monitoringList; }
+
+        public static bool IsNameUnique(string name)
         {
             //make sure name is unique
             for (int i = 0; i < monitoringList.Count; i++)
             {
                 if (monitoringList[i].Name.Equals(name))
                 {
-                    throw new ArgumentException(name + "already exists!");
+                    return false;
                 }
             }
+            return true;
+        }
+
+        public static bool Validator(string name, int lifeTime, int frequency)
+        {
+            if(!IsNameUnique(name))
+                throw new ArgumentException(name + "already exists!");
             if (frequency <= 0)
             {
                 throw new ArgumentException("frequency can't be less that or equal zero!");
@@ -27,14 +37,14 @@ namespace Pronitor.Logic
             return true;
         }
 
-
         public static void AddMonitor(string name, int lifetime, int frequency, char killkey = 'A')
         {
             try
             {
                 if (Validator(name, lifetime, frequency))//check if the input is valid, then add it to the monitoring list
                 {
-                    monitoringList.Add(new Monitor(name, lifetime, frequency, killkey));
+                    Monitor addedMonitor = new Monitor(name, lifetime, frequency, killkey);
+                    monitoringList.Add(addedMonitor);
                     //write to log
                 }
             }
@@ -58,14 +68,14 @@ namespace Pronitor.Logic
             //write to log
         }
 
-        public static void KillProcess(string name, int taskID)
+        public static void KillProcess(string name,Task passedTask)
         {
             for (int i = 0; i < monitoringList.Count; i++)
             {
                 if (monitoringList[i].Name.Equals(name))
                 {
-                    monitoringList[i].DeleteTask(taskID);
-                    i--;
+                    monitoringList[i].KillTask(passedTask);
+                    return;
                 }
             }
             //write to log

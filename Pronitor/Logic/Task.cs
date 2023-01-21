@@ -7,22 +7,23 @@ namespace Pronitor.Logic
     class Task
     {
         private Monitor parent;
-        private int processID;
+        private int taskID;
         private DateTime startTime;
         Timer timer;
 
 
-        public Task(Monitor parent, int processID)
+        public Task(Monitor parent, int taskID)
         {
             //Dependency injection
             this.parent = parent;
-            this.processID = processID;
+            this.taskID = taskID;
             startTime = DateTime.Now;
             InitTimer();
         }
 
         public DateTime StartTime { get => startTime; }
-
+        public int TaskID { get => taskID;}
+        public Timer Timer { get => timer; set => timer = value; }
 
         private void InitTimer()
         {
@@ -34,18 +35,18 @@ namespace Pronitor.Logic
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            if (DateTime.Now.Subtract(startTime).TotalMinutes > parent.LifeTime && !DoesProcessExist()) //TotalMinutesExceeded
+            if (DateTime.Now.Subtract(startTime).TotalMinutes > parent.LifeTime || !DoesProcessExist()) //TotalMinutesExceeded
             {
-                Manager.KillProcess(parent.Name, processID);//Kill me
+                parent.KillTask(this);//Kill me
             }
         }
 
         public bool DoesProcessExist()
         {
-            Process[] processlist = Process.GetProcesses();
-            foreach (Process theprocess in processlist)
+            Process[] tasklist = Process.GetProcesses();
+            foreach (Process thetask in tasklist)
             {
-                if (theprocess.Id == processID)
+                if (thetask.Id == taskID)
                     return true;
             }
             return false;

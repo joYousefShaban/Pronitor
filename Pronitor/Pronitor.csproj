@@ -51,11 +51,11 @@
     <Compile Include="Logic\Task.cs" />
     <Compile Include="Pronitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\AddProcess.cs">
+    <Compile Include="UI\AddTaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AddProcess.Designer.cs">
-      <DependentUpon>AddProcess.cs</DependentUpon>
+    <Compile Include="UI\AddTaskForm.Designer.cs">
+      <DependentUpon>AddTaskForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainMenu.cs">
       <SubType>Form</SubType>
@@ -72,8 +72,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\AddProcess.resx">
-      <DependentUpon>AddProcess.cs</DependentUpon>
+    <EmbeddedResource Include="UI\AddTaskForm.resx">
+      <DependentUpon>AddTaskForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
