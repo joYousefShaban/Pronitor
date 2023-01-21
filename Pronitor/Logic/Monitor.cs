@@ -31,12 +31,13 @@ namespace Pronitor.Logic
         public string Name { get => name; }
         public char KillKey { get => killKey; }
         internal List<Task> Tasks { get => tasks; set => tasks = value; }
+        public Timer ScanTimer { get => scanTimer; set => scanTimer = value; }
 
         private void InitScanTimer()
         {
             scanTimer = new Timer();
             scanTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            scanTimer.Interval = 9000; //scan each nine secounds
+            scanTimer.Interval = 1000; //scan each nine secounds
             scanTimer.Enabled = true;
         }
 
@@ -69,9 +70,29 @@ namespace Pronitor.Logic
 
         public void KillTask(Task passedTask)
         {
-            if (tasks.Contains(passedTask))
+            try
             {
-                tasks.Remove(passedTask);
+                Process[] processlist = Process.GetProcesses();
+                foreach (Process theprocess in processlist)
+                {
+                    if (theprocess.Id == passedTask.TaskID)
+                    {
+                        theprocess.Kill();
+                        theprocess.WaitForExit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                passedTask.Timer.Dispose();
+                if (tasks.Contains(passedTask))
+                {
+                    tasks.Remove(passedTask);
+                }
             }
         }
     }

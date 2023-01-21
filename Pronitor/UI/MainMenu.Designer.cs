@@ -67,13 +67,12 @@
             this.Column7,
             this.Column3,
             this.Column6});
-            this.dataGridView.Location = new System.Drawing.Point(247, 56);
+            this.dataGridView.Location = new System.Drawing.Point(241, 56);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(643, 393);
+            this.dataGridView.Size = new System.Drawing.Size(649, 393);
             this.dataGridView.TabIndex = 0;
-            //this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick);
-            this.dataGridView.VisibleChanged += new System.EventHandler(this.DataGridView_VisibleChanged);
+            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick);
             // 
             // label1
             // 
@@ -96,7 +95,7 @@
             this.button3.TabIndex = 10;
             this.button3.Text = "Inactive / Kill\r\nAll Tasks";
             this.button3.UseVisualStyleBackColor = true;
-            //this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -128,7 +127,7 @@
             this.button4.TabIndex = 11;
             this.button4.Text = "Delete All Monitors";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button2
             // 
@@ -138,17 +137,16 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "CheckLog";
             this.button2.UseVisualStyleBackColor = true;
-            //this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Status";
-            this.Column1.MinimumWidth = 60;
+            this.Column1.MinimumWidth = 65;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column1.Width = 60;
+            this.Column1.Width = 65;
             // 
             // Column2
             // 

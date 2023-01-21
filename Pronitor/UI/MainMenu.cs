@@ -19,6 +19,8 @@ namespace Pronitor
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            AddToDataGridView("Discord", 1, 1, 'Q');
+            AddToDataGridView("chrome", 1, 1, 'Q');
             InitRefreshTimer();
         }
 
@@ -26,7 +28,7 @@ namespace Pronitor
         {
             refreshTimer = new Timer();
             refreshTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            refreshTimer.Interval = 10000; //scan each ten secounds
+            refreshTimer.Interval = 1000; //scan each ten secounds
             refreshTimer.Enabled = true;
         }
 
@@ -40,6 +42,13 @@ namespace Pronitor
             dataGridView.Invoke((MethodInvoker)delegate
             {
                 List<Monitor> monitoringList = Manager.MonitoringList;
+                int selectedRowIndex=0;
+                int selectedColumnIndex = 0;
+                if (dataGridView.CurrentCell != null)
+                {
+                    selectedRowIndex = dataGridView.CurrentCell.RowIndex;
+                    selectedColumnIndex = dataGridView.CurrentCell.ColumnIndex;
+                }
                 dataGridView.Rows.Clear();
                 for (int i = 0; monitoringList.Count > i; i++)
                 {
@@ -63,6 +72,8 @@ namespace Pronitor
                     // Running on the UI thread
                     dataGridView.Rows.Add(row);
                 }
+                dataGridView.Focus();
+                dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
             });
         }
 
@@ -74,6 +85,7 @@ namespace Pronitor
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
             if (Application.OpenForms.OfType<AddTaskForm>().Count() == 1)
                 Application.OpenForms.OfType<AddTaskForm>().First().Focus();
             else
@@ -81,57 +93,37 @@ namespace Pronitor
                 AddTaskForm addProcessForm = new AddTaskForm(this);
                 addProcessForm.Show();
             }
+            button1.Enabled = true;
         }
 
-        private void DataGridView_VisibleChanged(object sender, EventArgs e) => dataGridView.ClearSelection();
+        /*private void DataGridView_VisibleChanged(object sender, EventArgs e) => dataGridView.ClearSelection();*/
 
         private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
             if (e.ColumnIndex == 6 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0 && e.RowIndex != dataGridView.RowCount - 1)
             {
-                dataGridView.Rows.RemoveAt(e.RowIndex);
+                Manager.DeleteMonitor(dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
             }
             else if (e.ColumnIndex == 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0 && e.RowIndex != dataGridView.RowCount - 1)
             {
-                var cell = ((DataGridViewButtonCell)dataGridView.Rows[e.RowIndex].Cells[0]);
-                if (cell.Value.Equals("Active"))
-                {
-                    cell.Value = "Inactive";
-                    cell.Style.BackColor = Color.Red;
-                    cell.Style.ForeColor = Color.White;
-                }
-                else
-                {
-                    cell.Value = "Active";
-                    cell.Style.BackColor = Color.Green;
-                    cell.Style.ForeColor = Color.Black;
-                }
+                Manager.KillTask(dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             //TODO
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i < dataGridView.Rows.Count; i++)
-            {
-                var cell = ((DataGridViewButtonCell)dataGridView.Rows[i - 1].Cells[0]);
-                if (cell.Value.Equals("Active"))
-                {
-                    cell.Value = "Inactive";
-                    cell.Style.BackColor = Color.Red;
-                    cell.Style.ForeColor = Color.White;
-                }
-            }
+            Manager.KillTask();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Clear();
+            Manager.DeleteMonitor();
         }
     }
 }

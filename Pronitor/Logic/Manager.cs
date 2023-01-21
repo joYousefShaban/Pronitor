@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pronitor.Logic
 {
@@ -24,7 +25,7 @@ namespace Pronitor.Logic
 
         public static bool Validator(string name, int lifeTime, int frequency)
         {
-            if(!IsNameUnique(name))
+            if (!IsNameUnique(name))
                 throw new ArgumentException(name + "already exists!");
             if (frequency <= 0)
             {
@@ -55,30 +56,44 @@ namespace Pronitor.Logic
             }
         }
 
-        public static void DeleteMonitor(char killKey)
+        public static void DeleteMonitor(string name = null)
         {
             for (int i = 0; i < monitoringList.Count; i++)
             {
-                if (monitoringList[i].KillKey.Equals(killKey))
+                if (name == null || (name != null && monitoringList[i].Name.Equals(name))) //check if to delete all monitors or a specified one
                 {
+                    for (int j = 0; j < monitoringList[i].Tasks.Count; j++) //kill all the tasks in the monitor
+                    {
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j]);
+                    }
+                    monitoringList[i].ScanTimer.Dispose();
                     monitoringList.RemoveAt(i);
                     i--;
+                    if (name != null) //if you found the specified one, no need to check the rest
+                    {
+                        return;
+                    }
                 }
             }
-            //write to log
         }
 
-        public static void KillProcess(string name,Task passedTask)
+        public static void KillTask(string name = null)
         {
             for (int i = 0; i < monitoringList.Count; i++)
             {
-                if (monitoringList[i].Name.Equals(name))
+                if (name == null) //kill all the tasks in the monitor
                 {
-                    monitoringList[i].KillTask(passedTask);
-                    return;
+                    for (int j = 0; j < monitoringList[i].Tasks.Count; j++)
+                    {
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j]);
+                    }
+                }
+                else if (monitoringList[i].Name.Equals(name) && monitoringList[i].Tasks.Count > 0)
+                {
+                    monitoringList[i].KillTask(monitoringList[i].Tasks[0]); //kill the first task for this monitor
                 }
             }
-            //write to log
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 
 namespace Pronitor.Logic
@@ -22,14 +23,14 @@ namespace Pronitor.Logic
         }
 
         public DateTime StartTime { get => startTime; }
-        public int TaskID { get => taskID;}
+        public int TaskID { get => taskID; }
         public Timer Timer { get => timer; set => timer = value; }
 
         private void InitTimer()
         {
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 60000 * parent.Frequency; //millisecond to minute * frequency
+            timer.Interval = 1000 * parent.Frequency; //millisecond to minute * frequency
             timer.Enabled = true;
         }
 
@@ -43,13 +44,7 @@ namespace Pronitor.Logic
 
         public bool DoesProcessExist()
         {
-            Process[] tasklist = Process.GetProcesses();
-            foreach (Process thetask in tasklist)
-            {
-                if (thetask.Id == taskID)
-                    return true;
-            }
-            return false;
+            return Process.GetProcesses().Any(x => x.Id == taskID);
         }
     }
 }
