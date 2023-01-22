@@ -12,7 +12,7 @@ namespace Pronitor.Logic
         private int lifeTime;
         private int frequency;
         private char killKey;
-        private List<Task> tasks = new List<Task>();
+        private List<Task> tasks;
         Timer scanTimer;
 
         public Monitor(string name, int lifeTime, int frequency, char killKey)
@@ -21,6 +21,7 @@ namespace Pronitor.Logic
             this.lifeTime = lifeTime;
             this.frequency = frequency;
             this.killKey = killKey;
+            tasks = new List<Task>();
             ScanProcesses();
             InitScanTimer();
         }
@@ -36,7 +37,7 @@ namespace Pronitor.Logic
         {
             scanTimer = new Timer();
             scanTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            scanTimer.Interval = 1000; //scan each nine secounds
+            scanTimer.Interval = 1000; //for testing persposes, it's assigned to scan once each second, to change to default(5 secounds) add the following value instead: 5000
             scanTimer.Enabled = true;
         }
 

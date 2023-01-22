@@ -30,7 +30,7 @@ namespace Pronitor.Logic
         {
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 1000 * parent.Frequency; //millisecond to minute * frequency
+            timer.Interval = 1000 * parent.Frequency; //for testing persposes, it's assigned to scan once each second, to change to default(1 minute) add the following value instead: 60000 then multiply by frequency
             timer.Enabled = true;
         }
 

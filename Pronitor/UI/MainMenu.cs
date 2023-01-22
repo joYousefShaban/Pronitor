@@ -20,8 +20,12 @@ namespace Pronitor
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            AddToDataGridView("Discord", 1, 1, 'Q');
-            AddToDataGridView("chrome", 1, 1, 'Q');
+            //DEFAULT VALUES
+            AddToDataGridView("Discord", 1, 1, 'S');
+            AddToDataGridView("chrome", 1, 1);
+            AddToDataGridView("OUTLOOK", 1, 2);
+            AddToDataGridView("Messenger", 1, 2);
+            AddToDataGridView("Taskmgr", 1, 2);
             InitRefreshTimer();
         }
 
@@ -29,7 +33,7 @@ namespace Pronitor
         {
             refreshTimer = new Timer();
             refreshTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            refreshTimer.Interval = 1000; //scan each ten secounds
+            refreshTimer.Interval = 1000;  //for testing persposes, it's assigned to scan once each second, to change to default(5 secounds) add the following value instead: 5000
             refreshTimer.Enabled = true;
         }
 
@@ -43,7 +47,7 @@ namespace Pronitor
             dataGridView.Invoke((MethodInvoker)delegate
             {
                 List<Monitor> monitoringList = Manager.MonitoringList;
-                int selectedRowIndex=0;
+                int selectedRowIndex = 0;
                 int selectedColumnIndex = 0;
                 if (dataGridView.CurrentCell != null)
                 {
@@ -73,14 +77,18 @@ namespace Pronitor
                     // Running on the UI thread
                     dataGridView.Rows.Add(row);
                 }
-                if (dataGridView.CurrentCell != null)
+                if (selectedRowIndex < dataGridView.Rows.Count)
                 {
                     dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
+                }
+                else
+                {
+                    dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
                 }
             });
         }
 
-        public void AddToDataGridView(string name, int lifeTime, int frequency, char key)
+        public void AddToDataGridView(string name, int lifeTime, int frequency, char key = 'Q')
         {
             Manager.AddMonitor(name, lifeTime, frequency, key);
             RefreshDataGridView();
@@ -129,9 +137,22 @@ namespace Pronitor
             Manager.DeleteMonitor();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void Button2_Click_1(object sender, EventArgs e)
         {
             Process.Start(Logger.exePath);
+        }
+
+        private void DataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            List<Monitor> monotoringList = Manager.MonitoringList;
+            for (int i = 0; i < monotoringList.Count; i++)
+            {
+                if (monotoringList[i].KillKey == e.KeyValue)
+                {
+                    Manager.DeleteMonitor(monotoringList[i].Name);
+                    i--;
+                }
+            }
         }
     }
 }

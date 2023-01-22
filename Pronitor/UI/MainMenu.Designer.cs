@@ -73,6 +73,7 @@
             this.dataGridView.Size = new System.Drawing.Size(649, 393);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellContentClick);
+            this.dataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridView_KeyDown);
             // 
             // Column1
             // 
@@ -193,7 +194,7 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "Open Log";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.Button2_Click_1);
             // 
             // MainMenu
             // 
