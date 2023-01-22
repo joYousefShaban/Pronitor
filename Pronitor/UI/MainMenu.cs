@@ -1,6 +1,7 @@
 ﻿using Pronitor.Logic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Timers;
@@ -72,8 +73,10 @@ namespace Pronitor
                     // Running on the UI thread
                     dataGridView.Rows.Add(row);
                 }
-                dataGridView.Focus();
-                dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
+                if (dataGridView.CurrentCell != null)
+                {
+                    dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
+                }
             });
         }
 
@@ -124,6 +127,11 @@ namespace Pronitor
         private void Button4_Click(object sender, EventArgs e)
         {
             Manager.DeleteMonitor();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Process.Start(Logger.exePath);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
@@ -54,6 +53,7 @@ namespace Pronitor.Logic
                 if (theprocess.ProcessName.Equals(name) && tasks.Count >= 0 && !IsInTasks(theprocess.Id))
                 {
                     tasks.Add(new Task(this, theprocess.Id));
+                    Logger.LogWrite($"({name}) process with the ID ({theprocess.Id}) has been added");
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace Pronitor.Logic
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.LogWrite($"({name}) process with the ID ({passedTask.TaskID}) has caused the following error ({e.Message})");
             }
             finally
             {
@@ -93,6 +93,7 @@ namespace Pronitor.Logic
                 {
                     tasks.Remove(passedTask);
                 }
+                Logger.LogWrite($"({name}) process with the ID ({passedTask.TaskID}) has been deleted");
             }
         }
     }

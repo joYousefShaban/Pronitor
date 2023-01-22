@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Pronitor.Logic
 {
@@ -46,7 +45,6 @@ namespace Pronitor.Logic
                 {
                     Monitor addedMonitor = new Monitor(name, lifetime, frequency, killkey);
                     monitoringList.Add(addedMonitor);
-                    //write to log
                 }
             }
             catch (Exception e)
