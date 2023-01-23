@@ -24,40 +24,43 @@ namespace Pronitor.ConsoleApplication
             Console.WriteLine();
 
             //Kill key validations
-            ConsoleKey enterUIKey = ConsoleKey.Enter;
+            ConsoleKey enterUIKey = ConsoleKey.Tab;
             if (killKey == ConsoleKey.Spacebar)
             {
                 Console.WriteLine("Spacebar key => has been changed to Enter key");
-                killKey = ConsoleKey.Enter; 
+                killKey = ConsoleKey.Enter;
             }
-            if (killKey == ConsoleKey.Enter)
-                enterUIKey = ConsoleKey.Tab;
+            if (killKey == ConsoleKey.Tab)
+                enterUIKey = ConsoleKey.Enter;
 
             Console.WriteLine("-------------------------------");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Press ({killKey}) anytime to stop, remember that you can acsses UI anytime by pressing ({enterUIKey})");
-            Console.ResetColor();
 
             Manager.AddMonitor(name, lifeTime, frequency, (char)killKey);
 
-            var CheckInput = Console.ReadKey(true).Key;
-            /*            while (!(Console.KeyAvailable && CheckInput == killKey))// Kill Utility if user hits the killKey immediately
-                        {
-                            *//*if (CheckInput == enterUIKey)// Enter UI enterUIKey immediately
-                            {
-                                Pronitor.CallUI();
-                                break;
-                            }*//*
-                            CheckInput = Console.ReadKey(true).Key;
-                        }*/
+
+            InputReminder(killKey,enterUIKey);
+            ConsoleKey CheckInput = Console.ReadKey(true).Key;
             while (CheckInput != killKey)
             {
                 if (CheckInput == enterUIKey)// Enter UI enterUIKey immediately
                 {
                     Pronitor.CallUI();
+                    Console.WriteLine("UI Form has been launched");
                 }
+                else
+                {
+                    Console.WriteLine($"You just typed {CheckInput}, which is not an acceptable key.");
+                }
+                InputReminder(killKey, enterUIKey);
                 CheckInput = Console.ReadKey(true).Key;
             }
+        }
+
+        public void InputReminder(ConsoleKey killKey, ConsoleKey enterUIKey)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Please remember that you can press ({killKey}) anytime to kill the utility, and ({enterUIKey}) to access UI");
+            Console.ResetColor();
         }
 
 

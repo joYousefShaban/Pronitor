@@ -37,7 +37,7 @@ namespace Pronitor.Logic
         {
             scanTimer = new Timer();
             scanTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            scanTimer.Interval = 1000; //assigned to tick once each second
+            scanTimer.Interval = 3000; //assigned to tick ence each three second
             scanTimer.Enabled = true;
         }
 
@@ -87,7 +87,7 @@ namespace Pronitor.Logic
             }
             catch (Exception e)
             {
-                string message = Manager.MessageTemplate($"({name}) process with the ID ({passedTask.TaskID}) has caused the following error: ({e.Message} | \"due to {killReasonCode}\" \n new total active processes is: {tasks.Count})");
+                string message = Manager.MessageTemplate($"({name}) process with the ID ({passedTask.TaskID}) has caused the following error: {e.Message}!!!! | \"due to {killReasonCode}\" \n new total active processes is: {tasks.Count}");
                 Logger.LogWrite(message);
                 Console.WriteLine(message);
             }

@@ -13,10 +13,14 @@ namespace Pronitor
     public partial class MainMenu : Form
     {
         static private Timer refreshTimer;
-        static public bool isActive = true;
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            refreshTimer.Dispose();
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
@@ -45,50 +49,57 @@ namespace Pronitor
 
         private void RefreshDataGridView()
         {
-            if (isActive)
+            try
             {
-                dataGridView.Invoke((MethodInvoker)delegate
+                dataGridView.Invoke(new Action(() =>
                 {
-                    List<Monitor> monitoringList = Manager.MonitoringList;
-                    int selectedRowIndex = 0;
-                    int selectedColumnIndex = 0;
-                    if (dataGridView.CurrentCell != null)
                     {
-                        selectedRowIndex = dataGridView.CurrentCell.RowIndex;
-                        selectedColumnIndex = dataGridView.CurrentCell.ColumnIndex;
-                    }
-                    dataGridView.Rows.Clear();
-                    for (int i = 0; monitoringList.Count > i; i++)
-                    {
-                        DataGridViewRow row = (DataGridViewRow)dataGridView.Rows[0].Clone();
-                        if (monitoringList[i].Tasks.Count > 0)
+                        List<Monitor> monitoringList = Manager.MonitoringList;
+                        int selectedRowIndex = 0;
+                        int selectedColumnIndex = 0;
+                        if (dataGridView.CurrentCell != null)
                         {
-                            row.Cells[0].Style.BackColor = Color.Green;
-                            row.Cells[0].Value = "Active (" + monitoringList[i].Tasks.Count + ")";
-                            row.Cells[2].Value = monitoringList[i].Tasks[0].StartTime;
+                            selectedRowIndex = dataGridView.CurrentCell.RowIndex;
+                            selectedColumnIndex = dataGridView.CurrentCell.ColumnIndex;
+                        }
+                        dataGridView.Rows.Clear();
+                        for (int i = 0; monitoringList.Count > i; i++)
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dataGridView.Rows[0].Clone();
+                            if (monitoringList[i].Tasks.Count > 0)
+                            {
+                                row.Cells[0].Style.BackColor = Color.Green;
+                                row.Cells[0].Value = "Active (" + monitoringList[i].Tasks.Count + ")";
+                                row.Cells[2].Value = monitoringList[i].Tasks[0].StartTime;
+                            }
+                            else
+                            {
+                                row.Cells[0].Style.BackColor = Color.Red;
+                                row.Cells[0].Value = "InActive";
+                                row.Cells[2].Value = "-";
+                            }
+                            row.Cells[1].Value = monitoringList[i].Name;
+                            row.Cells[3].Value = monitoringList[i].LifeTime + " minutes";
+                            row.Cells[4].Value = monitoringList[i].Frequency + " minutes";
+                            row.Cells[5].Value = monitoringList[i].KillKey;
+                            // Running on the UI thread
+                            dataGridView.Rows.Add(row);
+                        }
+                        if (selectedRowIndex < dataGridView.Rows.Count)
+                        {
+                            dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
                         }
                         else
                         {
-                            row.Cells[0].Style.BackColor = Color.Red;
-                            row.Cells[0].Value = "InActive";
-                            row.Cells[2].Value = "-";
+                            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
                         }
-                        row.Cells[1].Value = monitoringList[i].Name;
-                        row.Cells[3].Value = monitoringList[i].LifeTime + " minutes";
-                        row.Cells[4].Value = monitoringList[i].Frequency + " minutes";
-                        row.Cells[5].Value = monitoringList[i].KillKey;
-                        // Running on the UI thread
-                        dataGridView.Rows.Add(row);
                     }
-                    if (selectedRowIndex < dataGridView.Rows.Count)
-                    {
-                        dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
-                    }
-                    else
-                    {
-                        dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-                    }
-                });
+                }));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return;
             }
         }
 

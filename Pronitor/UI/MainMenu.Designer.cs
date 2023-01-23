@@ -206,6 +206,7 @@
             this.Controls.Add(this.label1);
             this.Name = "MainMenu";
             this.Text = "Pronitor";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_FormClosed);
             this.Load += new System.EventHandler(this.MainMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -214,7 +215,7 @@
         }
 
         #endregion
-        
+
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button1;
