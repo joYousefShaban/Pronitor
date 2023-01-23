@@ -6,7 +6,7 @@ namespace Pronitor
 {
     public partial class AddTaskForm : Form
     {
-        private MainMenu MainMenuCopy;
+        private readonly MainMenu MainMenuCopy;
         public AddTaskForm(MainMenu MainMenuCopy)
         {
             //Make dependency enjection

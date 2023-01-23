@@ -7,9 +7,9 @@ namespace Pronitor.Logic
 {
     class Task
     {
-        private Monitor parent;
-        private int taskID;
-        private DateTime startTime;
+        private readonly Monitor parent;
+        private readonly int taskID;
+        private readonly DateTime startTime;
         Timer timer;
 
 
@@ -30,15 +30,19 @@ namespace Pronitor.Logic
         {
             timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 1000 * parent.Frequency; //for testing persposes, it's assigned to scan once each second, to change to default(1 minute) add the following value instead: 60000 then multiply by frequency
+            timer.Interval = 60000 * parent.Frequency; //it's assigned to tick once minutes multiplied by frequency
             timer.Enabled = true;
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            if (DateTime.Now.Subtract(startTime).TotalMinutes > parent.LifeTime || !DoesProcessExist()) //TotalMinutesExceeded
+            if (DateTime.Now.Subtract(startTime).TotalMinutes < parent.LifeTime) //TotalMinutesExceeded
             {
-                parent.KillTask(this);//Kill me
+                parent.KillTask(this,"timeout");//Kill me
+            }
+            else if (!DoesProcessExist())
+            {
+                parent.KillTask(this, "not existing anymore");
             }
         }
 

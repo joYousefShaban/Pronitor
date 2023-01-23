@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Windows.Forms;
+using Pronitor.ConsoleApplication;
 
 namespace Pronitor
 {
     static class Pronitor
     {
         [STAThread]
-        private static void CallUI()
+        public static void CallUI()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainMenu());
+            MainMenu.isActive = false;
         }
+        
 
-        private static void CallConsole(string name, int lifetime, int frequency)
+        private static void CallConsole(string name, int lifeTime, int frequency)
         {
-            //TODO
+            _ = new Utility(name, lifeTime, frequency);
         }
-
         private static void ValidateInput(string[] args)
         {
-            if (int.TryParse(args[1], out int lifetime) && int.TryParse(args[2], out int frequency))
-                CallConsole(args[0], lifetime, frequency);
+            if (int.TryParse(args[1], out int lifeTime) && int.TryParse(args[2], out int frequency))
+                CallConsole(args[0], lifeTime, frequency);
             else
                 throw new FormatException();
         }
@@ -32,7 +34,7 @@ namespace Pronitor
             {
                 CallUI();
             }
-            else if (args.Length==3)
+            else if (args.Length == 3)
             {
                 ValidateInput(args);
             }

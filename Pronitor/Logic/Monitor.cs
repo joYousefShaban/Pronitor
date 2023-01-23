@@ -8,10 +8,10 @@ namespace Pronitor.Logic
 {
     class Monitor
     {
-        private string name;
-        private int lifeTime;
-        private int frequency;
-        private char killKey;
+        private readonly string name;
+        private readonly int lifeTime;
+        private readonly int frequency;
+        private readonly char killKey;
         private List<Task> tasks;
         Timer scanTimer;
 
@@ -37,7 +37,7 @@ namespace Pronitor.Logic
         {
             scanTimer = new Timer();
             scanTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            scanTimer.Interval = 1000; //for testing persposes, it's assigned to scan once each second, to change to default(5 secounds) add the following value instead: 5000
+            scanTimer.Interval = 1000; //assigned to tick once each second
             scanTimer.Enabled = true;
         }
 
@@ -54,7 +54,9 @@ namespace Pronitor.Logic
                 if (theprocess.ProcessName.Equals(name) && tasks.Count >= 0 && !IsInTasks(theprocess.Id))
                 {
                     tasks.Add(new Task(this, theprocess.Id));
-                    Logger.LogWrite($"({name}) process with the ID ({theprocess.Id}) has been added");
+                    string message = Manager.MessageTemplate($"({name}) process with the ID ({theprocess.Id}) has been added \n new total active processes is: {tasks.Count}");
+                    Logger.LogWrite(message);
+                    Console.WriteLine(message);
                 }
             }
         }
@@ -69,7 +71,7 @@ namespace Pronitor.Logic
             return false;
         }
 
-        public void KillTask(Task passedTask)
+        public void KillTask(Task passedTask ,string killReasonCode)
         {
             try
             {
@@ -85,7 +87,9 @@ namespace Pronitor.Logic
             }
             catch (Exception e)
             {
-                Logger.LogWrite($"({name}) process with the ID ({passedTask.TaskID}) has caused the following error ({e.Message})");
+                string message = Manager.MessageTemplate($"({name}) process with the ID ({passedTask.TaskID}) has caused the following error: ({e.Message} | \"due to {killReasonCode}\" \n new total active processes is: {tasks.Count})");
+                Logger.LogWrite(message);
+                Console.WriteLine(message);
             }
             finally
             {
@@ -94,7 +98,9 @@ namespace Pronitor.Logic
                 {
                     tasks.Remove(passedTask);
                 }
-                Logger.LogWrite($"({name}) process with the ID ({passedTask.TaskID}) has been deleted");
+                string message = Manager.MessageTemplate($"({name}) process with the ID ({passedTask.TaskID}) has been deleted | \"due to {killReasonCode}\" \n new total active processes is: {tasks.Count}");
+                Logger.LogWrite(message);
+                Console.WriteLine(message);
             }
         }
     }

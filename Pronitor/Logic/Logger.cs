@@ -34,11 +34,7 @@ namespace Pronitor.Logic
             // available.
             lock (_syncObject)
             {
-                w.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
-                    DateTime.Now.ToLongDateString());
-                w.WriteLine("  :");
-                w.WriteLine("  :{0}", logMessage);
-                w.WriteLine("-------------------------------");
+                w.WriteLine(logMessage);
                 // Update the underlying file.
                 w.Flush();
             }

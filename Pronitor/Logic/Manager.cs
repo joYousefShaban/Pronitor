@@ -5,7 +5,7 @@ namespace Pronitor.Logic
 {
     static class Manager
     {
-        private static List<Monitor> monitoringList = new List<Monitor>();
+        private static readonly List<Monitor> monitoringList = new List<Monitor>();
 
         internal static List<Monitor> MonitoringList { get => monitoringList; }
 
@@ -37,7 +37,7 @@ namespace Pronitor.Logic
             return true;
         }
 
-        public static void AddMonitor(string name, int lifetime, int frequency, char killkey = 'A')
+        public static void AddMonitor(string name, int lifetime, int frequency, char killkey = 'Q')
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Pronitor.Logic
             catch (Exception e)
             {
                 Console.WriteLine("An error has accured adding a new monitor");
-                throw e;
+                Console.WriteLine(e);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++) //kill all the tasks in the monitor
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j]);
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j],"manual reason");
                     }
                     monitoringList[i].ScanTimer.Dispose();
                     monitoringList.RemoveAt(i);
@@ -83,15 +83,19 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++)
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j]);
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j],"manual reason");
                     }
                 }
                 else if (monitoringList[i].Name.Equals(name) && monitoringList[i].Tasks.Count > 0)
                 {
-                    monitoringList[i].KillTask(monitoringList[i].Tasks[0]); //kill the first task for this monitor
+                    monitoringList[i].KillTask(monitoringList[i].Tasks[0],"manual reason"); //kill the first task for this monitor
                 }
             }
+        }
 
+        public static string MessageTemplate(string message)
+        {
+            return ($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}\n :\n :{message}\n-------------------------------");
         }
     }
 }
