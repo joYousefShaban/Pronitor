@@ -44,7 +44,7 @@ namespace Pronitor.ConsoleApplication
             {
                 if (CheckInput == enterUIKey)// Enter UI enterUIKey immediately
                 {
-                    Pronitor.CallUI();
+                    DecideInterface.CallUI();
                     Console.WriteLine("UI Form has been launched");
                 }
                 else

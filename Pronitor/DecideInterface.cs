@@ -4,7 +4,7 @@ using Pronitor.ConsoleApplication;
 
 namespace Pronitor
 {
-    static class Pronitor
+    static class DecideInterface
     {
         [STAThread]
         public static void CallUI()
