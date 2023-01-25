@@ -10,30 +10,35 @@ using Timer = System.Timers.Timer;
 
 namespace Pronitor
 {
-    public partial class MainMenu : Form
+    public partial class UIMainMenu : Form
     {
         static private Timer refreshTimer;
-        public MainMenu()
+        public UIMainMenu()
         {
             InitializeComponent();
         }
 
-        private void MainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        // Form close event listener
+        private void UIMainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
             refreshTimer.Dispose();
         }
 
-        private void MainMenu_Load(object sender, EventArgs e)
+        // Form load event listener
+        private void UIMainMenu_Load(object sender, EventArgs e)
         {
-            //DEFAULT VALUES 
-            /*AddToDataGridView("Discord", 1, 1, 'S');
+            //DEFAULT VALUES IF NEEDED
+            /*
+            AddToDataGridView("Discord", 1, 1, 'S');
             AddToDataGridView("chrome", 10, 15);
             AddToDataGridView("OUTLOOK", 6, 2, 'C');
             AddToDataGridView("Messenger", 1, 2);
-            AddToDataGridView("Taskmgr", 5, 2, 'A');*/
+            AddToDataGridView("Taskmgr", 5, 2, 'A');
+            */
             InitRefreshTimer();
         }
 
+        // Initialize timer upon refresh seconds
         private void InitRefreshTimer()
         {
             refreshTimer = new Timer();
@@ -42,15 +47,19 @@ namespace Pronitor
             refreshTimer.Enabled = true;
         }
 
+        // Timer event listener
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             RefreshDataGridView();
         }
 
+        // Periodically refreshes the gridview based on the updated model
         private void RefreshDataGridView()
         {
+            // Used try catch block to handle possible thread exeptions
             try
             {
+                // Executes the specified delegate on the main thread
                 dataGridView.Invoke(new Action(() =>
                 {
                     {
@@ -66,6 +75,8 @@ namespace Pronitor
                         for (int i = 0; monitoringList.Count > i; i++)
                         {
                             DataGridViewRow row = (DataGridViewRow)dataGridView.Rows[0].Clone();
+
+                            // Checks whether the monitor contians any active tasks or not
                             if (monitoringList[i].Tasks.Count > 0)
                             {
                                 row.Cells[0].Style.BackColor = Color.Green;
@@ -82,9 +93,11 @@ namespace Pronitor
                             row.Cells[3].Value = monitoringList[i].LifeTime + " minutes";
                             row.Cells[4].Value = monitoringList[i].Frequency + " minutes";
                             row.Cells[5].Value = monitoringList[i].KillKey;
-                            // Running on the UI thread
+
                             dataGridView.Rows.Add(row);
                         }
+
+                        // Preserve gridview cell focus after refresh
                         if (selectedRowIndex < dataGridView.Rows.Count)
                         {
                             dataGridView.CurrentCell = dataGridView.Rows[selectedRowIndex].Cells[selectedColumnIndex];
@@ -98,58 +111,34 @@ namespace Pronitor
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return;
             }
         }
 
+        // Append a new monitor to the datagridview
         public void AddToDataGridView(string name, int lifeTime, int frequency, char key = 'Q')
         {
             Manager.AddMonitor(name, lifeTime, frequency, key);
             RefreshDataGridView();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            button1.Enabled = false;
-            if (Application.OpenForms.OfType<AddTaskForm>().Count() == 1)
-                Application.OpenForms.OfType<AddTaskForm>().First().Focus();
-            else
-            {
-                AddTaskForm addProcessForm = new AddTaskForm(this);
-                addProcessForm.Show();
-            }
-            button1.Enabled = true;
-        }
-
+        // Datagridview button click listner
         private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
+
+            // Checks if the button corresponds to the last column (delete monitor)
             if (e.ColumnIndex == 6 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0 && e.RowIndex != dataGridView.RowCount - 1)
             {
                 Manager.DeleteMonitor(dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
             }
+            // Checks if the button corresponds to the first column (delete task)
             else if (e.ColumnIndex == 0 && senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0 && e.RowIndex != dataGridView.RowCount - 1)
             {
                 Manager.KillTask(dataGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
             }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            Manager.KillTask();
-        }
-
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            Manager.DeleteMonitor();
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            Process.Start(Logger.exePath);
-        }
-
+        // Listen for keyboard entries and kill the corresponding monitors based on a predefined hotkey (killKey)
         private void DataGridView_KeyDown(object sender, KeyEventArgs e)
         {
             List<Monitor> monotoringList = Manager.MonitoringList;
@@ -161,6 +150,38 @@ namespace Pronitor
                     i--;
                 }
             }
+        }
+
+        // Add task button click listner
+        private void AddTaskButton_Click(object sender, EventArgs e)
+        {
+            AddTaskButton.Enabled = false;
+            if (Application.OpenForms.OfType<AddTaskForm>().Count() == 1)
+                Application.OpenForms.OfType<AddTaskForm>().First().Focus();
+            else
+            {
+                AddTaskForm addProcessForm = new AddTaskForm(this);
+                addProcessForm.Show();
+            }
+            AddTaskButton.Enabled = true;
+        }
+
+        // Open log button click listner
+        private void OpenLogButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(Logger.exePath);
+        }
+
+        // Kill all tasks button click listner
+        private void KillAllTasksButton_Click(object sender, EventArgs e)
+        {
+            Manager.KillTask();
+        }
+
+        // Delete all monitors button click listner
+        private void DeleteAllMonitorsButton_Click(object sender, EventArgs e)
+        {
+            Manager.DeleteMonitor();
         }
     }
 }

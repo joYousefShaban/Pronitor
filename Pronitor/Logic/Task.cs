@@ -5,12 +5,12 @@ using System.Timers;
 
 namespace Pronitor.Logic
 {
-    class Task
+    public class Task
     {
         private readonly Monitor parent;
         private readonly int taskID;
         private readonly DateTime startTime;
-        Timer timer;
+        Timer scanTimer;
 
 
         public Task(Monitor parent, int taskID)
@@ -24,21 +24,25 @@ namespace Pronitor.Logic
 
         public DateTime StartTime { get => startTime; }
         public int TaskID { get => taskID; }
-        public Timer Timer { get => timer; set => timer = value; }
+        public Timer ScanTimer { get => scanTimer; set => scanTimer = value; }
 
+        // Initialize timer upon scan seconds
         private void InitTimer()
         {
-            timer = new Timer();
-            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 60000 * parent.Frequency; //it's assigned to tick once minutes multiplied by frequency
-            timer.Enabled = true;
+            scanTimer = new Timer();
+            scanTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            scanTimer.Interval = 60000 * parent.Frequency; //it's assigned to tick once minutes multiplied by frequency
+            scanTimer.Enabled = true;
         }
 
+        // Initialize timer upon scan seconds
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            if (DateTime.Now.Subtract(startTime).TotalMinutes < parent.LifeTime) //TotalMinutesExceeded
+
+            //TotalMinutesExceeded
+            if (DateTime.Now.Subtract(startTime).TotalMinutes < parent.LifeTime)
             {
-                parent.KillTask(this,"timeout");//Kill me
+                parent.KillTask(this, "timeout");//Kill me
             }
             else if (!DoesProcessExist())
             {
@@ -46,6 +50,7 @@ namespace Pronitor.Logic
             }
         }
 
+        // Checks if the task already exist in windows processes based on taskID
         public bool DoesProcessExist()
         {
             return Process.GetProcesses().Any(x => x.Id == taskID);

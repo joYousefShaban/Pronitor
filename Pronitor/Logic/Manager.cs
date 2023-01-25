@@ -1,27 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pronitor.Logic
 {
-    static class Manager
+    public class Manager
     {
-        private static readonly List<Monitor> monitoringList = new List<Monitor>();
+        public static readonly List<Monitor> monitoringList = new List<Monitor>();
 
         internal static List<Monitor> MonitoringList { get => monitoringList; }
 
+        // Checks if name already exist
         public static bool IsNameUnique(string name)
         {
-            //make sure name is unique
-            for (int i = 0; i < monitoringList.Count; i++)
-            {
-                if (monitoringList[i].Name.Equals(name))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return !MonitoringList.Any(x => x.Name.Equals(name));
         }
 
+        // Validate input information
         public static bool Validator(string name, int lifeTime, int frequency)
         {
             if (!IsNameUnique(name))
@@ -37,6 +32,7 @@ namespace Pronitor.Logic
             return true;
         }
 
+        // Appends a new monitor object to monitoringList
         public static void AddMonitor(string name, int lifetime, int frequency, char killkey = 'Q')
         {
             try
@@ -54,6 +50,7 @@ namespace Pronitor.Logic
             }
         }
 
+        // Removes a monitor object from monitoringList based on its name or clear all monitors in monitoringList if the name was not specified
         public static void DeleteMonitor(string name = null)
         {
             for (int i = 0; i < monitoringList.Count; i++)
@@ -62,7 +59,7 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++) //kill all the tasks in the monitor
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j],"manual reason");
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "manual reason");
                     }
                     monitoringList[i].ScanTimer.Dispose();
                     monitoringList.RemoveAt(i);
@@ -75,6 +72,7 @@ namespace Pronitor.Logic
             }
         }
 
+        // Removes a task object in a monitor from monitoringList based on its name or clear all tasks  in a monitor from monitoringList if the name was not specified
         public static void KillTask(string name = null)
         {
             for (int i = 0; i < monitoringList.Count; i++)
@@ -83,16 +81,18 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++)
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j],"manual reason");
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "manual reason");
                     }
                 }
                 else if (monitoringList[i].Name.Equals(name) && monitoringList[i].Tasks.Count > 0)
                 {
-                    monitoringList[i].KillTask(monitoringList[i].Tasks[0],"manual reason"); //kill the first task for this monitor
+                    monitoringList[i].KillTask(monitoringList[i].Tasks[0], "manual reason"); //kill the first task for this monitor
+                    break;
                 }
             }
         }
 
+        // Assigns a format for messages
         public static string MessageTemplate(string message)
         {
             return ($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}\n :\n :{message}\n-------------------------------");

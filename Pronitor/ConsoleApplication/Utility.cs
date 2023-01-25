@@ -3,7 +3,7 @@ using Pronitor.Logic;
 
 namespace Pronitor.ConsoleApplication
 {
-    class Utility
+    public class Utility
     {
         private readonly string name;
         private readonly int lifeTime;
@@ -17,13 +17,14 @@ namespace Pronitor.ConsoleApplication
             Run();
         }
 
+        // Prompts user for initial input
         public void Run()
         {
             Console.Write("Please enter your keyboard key to kill the utility => ");
             ConsoleKey killKey = Console.ReadKey().Key;
             Console.WriteLine();
 
-            //Kill key validations
+            //Keys validations
             ConsoleKey enterUIKey = ConsoleKey.Tab;
             if (killKey == ConsoleKey.Spacebar)
             {
@@ -34,17 +35,21 @@ namespace Pronitor.ConsoleApplication
                 enterUIKey = ConsoleKey.Enter;
 
             Console.WriteLine("-------------------------------");
-
             Manager.AddMonitor(name, lifeTime, frequency, (char)killKey);
 
+            ListenForConsoleStream(killKey, enterUIKey);
+        }
 
-            InputReminder(killKey,enterUIKey);
+        // Console stream input listner
+        public void ListenForConsoleStream(ConsoleKey killKey, ConsoleKey enterUIKey)
+        {
+            InputReminder(killKey, enterUIKey);
             ConsoleKey CheckInput = Console.ReadKey(true).Key;
             while (CheckInput != killKey)
             {
-                if (CheckInput == enterUIKey)// Enter UI enterUIKey immediately
+                if (CheckInput == enterUIKey)
                 {
-                    DecideInterface.CallUI();
+                    Router.CallUI();
                     Console.WriteLine("UI Form has been launched");
                 }
                 else
@@ -56,17 +61,12 @@ namespace Pronitor.ConsoleApplication
             }
         }
 
+        // Reminds the user with the mapped keys
         public void InputReminder(ConsoleKey killKey, ConsoleKey enterUIKey)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Please remember that you can press ({killKey}) anytime to kill the utility, and ({enterUIKey}) to access UI");
             Console.ResetColor();
-        }
-
-
-        public static void TypeMessage(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

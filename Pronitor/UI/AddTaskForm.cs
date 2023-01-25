@@ -8,85 +8,65 @@ namespace Pronitor
 {
     public partial class AddTaskForm : Form
     {
-        private readonly MainMenu MainMenuCopy;
-        public AddTaskForm(MainMenu MainMenuCopy)
+        private readonly UIMainMenu UIMainMenu;
+        public AddTaskForm(UIMainMenu UIMainMenu)
         {
-            //Make dependency enjection
             InitializeComponent();
-            this.MainMenuCopy = MainMenuCopy;
+
+            // Inject mainMenu object
+            this.UIMainMenu = UIMainMenu;
         }
 
-        private void Label1_Click(object sender, EventArgs e)
-        {
-            textBox1.Focus();
-        }
-
-        private void Label6_Click(object sender, EventArgs e)
-        {
-            textBox2.Focus();
-        }
-
-        private void Label2_Click(object sender, EventArgs e)
-        {
-            numericUpDown1.Focus();
-        }
-
-        private void Label3_Click(object sender, EventArgs e)
-        {
-            numericUpDown2.Focus();
-        }
-
+        // Validate form information
         private bool Validations()
         {
-            if (textBox1.Enabled == true)
+            if (MonitorNameTextBox.Enabled)
             {
-                Console.WriteLine("I'm here-");
-                if (textBox1.TextLength == 0)
+                if (MonitorNameTextBox.TextLength == 0)
                 {
                     MessageBox.Show("Name can't be null");
                     return false;
                 }
-                else if (!Manager.IsNameUnique(textBox1.Text))
+                else if (!Manager.IsNameUnique(MonitorNameTextBox.Text))
                 {
                     MessageBox.Show("Name is already registered");
                     return false;
                 }
             }
-            else if (comboBox1.Enabled == true)
+            else if (MonitorNameComboBox.Enabled)
             {
-                Console.WriteLine("I'm here-");
-                if (comboBox1.Text.Length == 0)
+                if (MonitorNameComboBox.Text.Length == 0)
                 {
                     MessageBox.Show("Process Name can't be null");
                     return false;
                 }
-                else if (!Manager.IsNameUnique(comboBox1.Text))
+                else if (!Manager.IsNameUnique(MonitorNameComboBox.Text))
                 {
                     MessageBox.Show("Name is already registered");
                     return false;
                 }
             }
-            if (textBox2.TextLength == 0)
+            if (KillKeyTextBox.TextLength == 0)
             {
-                MessageBox.Show("killKey can't be null");
+                MessageBox.Show("KillKey can't be null");
                 return false;
             }
-            if (numericUpDown1.Value <= 0)
+            if (LifeTimeNumericUpDown.Value <= 0)
             {
                 MessageBox.Show("Liftime can't be less or equal zero");
                 return false;
             }
-            if (!(numericUpDown1.Value == (int)numericUpDown1.Value))
+            if (!(LifeTimeNumericUpDown.Value == (int)LifeTimeNumericUpDown.Value))
             {
                 MessageBox.Show("Liftime has to be a decimal number");
                 return false;
             }
-            if (numericUpDown2.Value <= 0)
+            if (FrequencyNumericUpDown.Value <= 0)
             {
                 MessageBox.Show("Frequency can't be less or equal zero");
                 return false;
             }
-            if (!(numericUpDown2.Value == (int)numericUpDown2.Value))
+            if (!(FrequencyNumericUpDown.Value == (int)FrequencyNumericUpDown.Value))
             {
                 MessageBox.Show("Frequency has to be a decimal number");
                 return false;
@@ -94,57 +74,72 @@ namespace Pronitor
             return true;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        // Confirm button click listner
+        private void ConfirmButton_Click(object sender, EventArgs e)
         {
             if (Validations())
             {
                 string name;
-                if (textBox1.Enabled)
-                    name = textBox1.Text;
+                if (MonitorNameTextBox.Enabled)
+                    name = MonitorNameTextBox.Text;
                 else
-                    name = comboBox1.Text;
-                MainMenuCopy.AddToDataGridView(name, (int)numericUpDown1.Value, (int)numericUpDown2.Value, char.Parse(textBox2.Text));
+                    name = MonitorNameComboBox.Text;
+                UIMainMenu.AddToDataGridView(name, (int)LifeTimeNumericUpDown.Value, (int)FrequencyNumericUpDown.Value, char.Parse(KillKeyTextBox.Text));
                 Close();
             }
         }
 
-        private void label7_Click(object sender, EventArgs e)
+        // Populate MonitorNameComboBox on dropDown
+        private void MonitorNameComboBox_DropDown(object sender, EventArgs e)
         {
-            comboBox1.Focus();
-        }
-
-        private void AddTaskForm_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (comboBox1.Bounds.Contains(PointToClient(Cursor.Position)))
-            {
-                textBox1.Enabled = false;
-                comboBox1.Enabled = true;
-            }
-            else if (textBox1.Bounds.Contains(PointToClient(Cursor.Position)))
-            {
-                textBox1.Enabled = true;
-                comboBox1.Enabled = false;
-                comboBox1.AllowDrop = false;
-            }
-        }
-
-        private void AddTaskForm_Load(object sender, EventArgs e)
-        {
-            Console.WriteLine(comboBox1.Bounds);
-            Console.WriteLine(textBox1.Bounds);
-            Console.WriteLine(comboBox1.ClientRectangle);
-            Console.WriteLine(textBox1.ClientRectangle);
-        }
-
-        private void ComboBox1_DropDown(object sender, EventArgs e)
-        {
-            comboBox1.Items.Clear();
+            MonitorNameComboBox.Items.Clear();
             Process[] processList = Process.GetProcesses();
             var distinctProcessList = processList.Select(x => x.ProcessName).Distinct().ToArray();
             foreach (string theprocess in distinctProcessList)
             {
-                comboBox1.Items.Add(theprocess);
+                MonitorNameComboBox.Items.Add(theprocess);
             }
+        }
+
+        // Switches between comboBox or textBox whenether is clicked
+        private void AddTaskForm_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (MonitorNameComboBox.Bounds.Contains(PointToClient(Cursor.Position)))
+            {
+                MonitorNameTextBox.Enabled = false;
+                MonitorNameTextBox.Text = "";
+                MonitorNameComboBox.Enabled = true;
+                MonitorNameComboBox.Focus();
+            }
+            else if (MonitorNameTextBox.Bounds.Contains(PointToClient(Cursor.Position)))
+            {
+                MonitorNameComboBox.Enabled = false;
+                MonitorNameComboBox.Text = "";
+                MonitorNameTextBox.Enabled = true;
+                MonitorNameTextBox.Focus();
+            }
+        }
+
+        // Pressing on a label Focuses on its associated element
+        private void TypeMonitorLabel_Click(object sender, EventArgs e)
+        {
+            MonitorNameTextBox.Focus();
+        }
+        private void MonitorKillKeyLabel_Click(object sender, EventArgs e)
+        {
+            KillKeyTextBox.Focus();
+        }
+        private void MaximumLifetimeLabel_Click(object sender, EventArgs e)
+        {
+            LifeTimeNumericUpDown.Focus();
+        }
+        private void MonitoringFrequencyLabel_Click(object sender, EventArgs e)
+        {
+            FrequencyNumericUpDown.Focus();
+        }
+        private void ChooseFromAnActiveProcessesLabel_Click(object sender, EventArgs e)
+        {
+            MonitorNameComboBox.Focus();
         }
     }
 }

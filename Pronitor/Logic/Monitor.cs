@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace Pronitor.Logic
 {
-    class Monitor
+    public class Monitor
     {
         private readonly string name;
         private readonly int lifeTime;
         private readonly int frequency;
         private readonly char killKey;
-        private List<Task> tasks;
+        public List<Task> tasks;
         Timer scanTimer;
 
         public Monitor(string name, int lifeTime, int frequency, char killKey)
@@ -33,6 +34,7 @@ namespace Pronitor.Logic
         internal List<Task> Tasks { get => tasks; set => tasks = value; }
         public Timer ScanTimer { get => scanTimer; set => scanTimer = value; }
 
+        // Initialize timer upon scan seconds
         private void InitScanTimer()
         {
             scanTimer = new Timer();
@@ -41,11 +43,13 @@ namespace Pronitor.Logic
             scanTimer.Enabled = true;
         }
 
+        // Timer event listener
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             ScanProcesses();
         }
 
+        // Periodically scans the tasks in monitorList and checks if they are active in windows processes
         private void ScanProcesses()
         {
             Process[] processlist = Process.GetProcesses();
@@ -61,17 +65,14 @@ namespace Pronitor.Logic
             }
         }
 
+        // Checks if the task already exist based on taskID
         public bool IsInTasks(int taskID)
         {
-            for (int i = 0; i < tasks.Count; i++)
-            {
-                if (tasks[i].TaskID == taskID)
-                    return true;
-            }
-            return false;
+            return tasks.Any(x => x.TaskID == taskID);
         }
 
-        public void KillTask(Task passedTask ,string killReasonCode)
+        // Removes a task object in a monitor from monitoringList and kills the corresponding windows process
+        public void KillTask(Task passedTask, string killReasonCode)
         {
             try
             {
@@ -93,7 +94,10 @@ namespace Pronitor.Logic
             }
             finally
             {
-                passedTask.Timer.Dispose();
+
+                // Dispose the thread when killing the instanse
+                passedTask.ScanTimer.Dispose();
+
                 if (tasks.Contains(passedTask))
                 {
                     tasks.Remove(passedTask);

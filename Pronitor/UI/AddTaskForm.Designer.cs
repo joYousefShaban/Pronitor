@@ -32,19 +32,19 @@ namespace Pronitor
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddTaskForm));
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.FrequencyNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.LifeTimeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ConfirmButton = new System.Windows.Forms.Button();
+            this.MonitorNameTextBox = new System.Windows.Forms.TextBox();
+            this.MonitoringFrequencyLabel = new System.Windows.Forms.Label();
+            this.MaximumLifetimeLabel = new System.Windows.Forms.Label();
+            this.TypeMonitorLabel = new System.Windows.Forms.Label();
+            this.KillKeyTextBox = new System.Windows.Forms.TextBox();
+            this.MonitorKillKeyLabel = new System.Windows.Forms.Label();
+            this.ChooseFromAnActiveProcessesLabel = new System.Windows.Forms.Label();
+            this.MonitorNameComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.FrequencyNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LifeTimeNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -69,151 +69,150 @@ namespace Pronitor
             this.label4.TabIndex = 21;
             this.label4.Text = "Minutes";
             // 
-            // numericUpDown2
+            // FrequencyNumericUpDown
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(252, 262);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numericUpDown2.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown2.TabIndex = 20;
+            this.FrequencyNumericUpDown.Location = new System.Drawing.Point(252, 262);
+            this.FrequencyNumericUpDown.Name = "FrequencyNumericUpDown";
+            this.FrequencyNumericUpDown.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.FrequencyNumericUpDown.Size = new System.Drawing.Size(47, 20);
+            this.FrequencyNumericUpDown.TabIndex = 20;
             // 
-            // numericUpDown1
+            // LifeTimeNumericUpDown
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(52, 262);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDown1.TabIndex = 19;
+            this.LifeTimeNumericUpDown.Location = new System.Drawing.Point(52, 262);
+            this.LifeTimeNumericUpDown.Name = "LifeTimeNumericUpDown";
+            this.LifeTimeNumericUpDown.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.LifeTimeNumericUpDown.Size = new System.Drawing.Size(47, 20);
+            this.LifeTimeNumericUpDown.TabIndex = 19;
             // 
-            // button1
+            // ConfirmButton
             // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(133, 343);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 45);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Confirm";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.ConfirmButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ConfirmButton.Location = new System.Drawing.Point(133, 343);
+            this.ConfirmButton.Name = "ConfirmButton";
+            this.ConfirmButton.Size = new System.Drawing.Size(137, 45);
+            this.ConfirmButton.TabIndex = 18;
+            this.ConfirmButton.Text = "Confirm";
+            this.ConfirmButton.UseVisualStyleBackColor = true;
+            this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
-            // textBox1
+            // MonitorNameTextBox
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(13, 163);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox1.Size = new System.Drawing.Size(170, 22);
-            this.textBox1.TabIndex = 17;
+            this.MonitorNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MonitorNameTextBox.Location = new System.Drawing.Point(13, 163);
+            this.MonitorNameTextBox.Name = "MonitorNameTextBox";
+            this.MonitorNameTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MonitorNameTextBox.Size = new System.Drawing.Size(170, 22);
+            this.MonitorNameTextBox.TabIndex = 17;
             // 
-            // label3
+            // MonitoringFrequencyLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(225, 231);
-            this.label3.Name = "label3";
-            this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label3.Size = new System.Drawing.Size(155, 18);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Monitoring Frequency";
-            this.label3.Click += new System.EventHandler(this.Label3_Click);
+            this.MonitoringFrequencyLabel.AutoSize = true;
+            this.MonitoringFrequencyLabel.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MonitoringFrequencyLabel.Location = new System.Drawing.Point(225, 231);
+            this.MonitoringFrequencyLabel.Name = "MonitoringFrequencyLabel";
+            this.MonitoringFrequencyLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MonitoringFrequencyLabel.Size = new System.Drawing.Size(155, 18);
+            this.MonitoringFrequencyLabel.TabIndex = 16;
+            this.MonitoringFrequencyLabel.Text = "Monitoring Frequency";
+            this.MonitoringFrequencyLabel.Click += new System.EventHandler(this.MonitoringFrequencyLabel_Click);
             // 
-            // label2
+            // MaximumLifetimeLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(23, 231);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label2.Size = new System.Drawing.Size(134, 18);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Maximum Lifetime";
-            this.label2.Click += new System.EventHandler(this.Label2_Click);
+            this.MaximumLifetimeLabel.AutoSize = true;
+            this.MaximumLifetimeLabel.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaximumLifetimeLabel.Location = new System.Drawing.Point(23, 231);
+            this.MaximumLifetimeLabel.Name = "MaximumLifetimeLabel";
+            this.MaximumLifetimeLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MaximumLifetimeLabel.Size = new System.Drawing.Size(134, 18);
+            this.MaximumLifetimeLabel.TabIndex = 15;
+            this.MaximumLifetimeLabel.Text = "Maximum Lifetime";
+            this.MaximumLifetimeLabel.Click += new System.EventHandler(this.MaximumLifetimeLabel_Click);
             // 
-            // label1
+            // TypeMonitorLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(49, 108);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(102, 36);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Type Monitor \r\nName";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.Label1_Click);
+            this.TypeMonitorLabel.AutoSize = true;
+            this.TypeMonitorLabel.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TypeMonitorLabel.Location = new System.Drawing.Point(49, 108);
+            this.TypeMonitorLabel.Name = "TypeMonitorLabel";
+            this.TypeMonitorLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TypeMonitorLabel.Size = new System.Drawing.Size(102, 36);
+            this.TypeMonitorLabel.TabIndex = 14;
+            this.TypeMonitorLabel.Text = "Type Monitor \r\nName";
+            this.TypeMonitorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TypeMonitorLabel.Click += new System.EventHandler(this.TypeMonitorLabel_Click);
             // 
-            // textBox2
+            // KillKeyTextBox
             // 
-            this.textBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(181, 55);
-            this.textBox2.MaxLength = 1;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox2.Size = new System.Drawing.Size(31, 22);
-            this.textBox2.TabIndex = 24;
+            this.KillKeyTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.KillKeyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KillKeyTextBox.Location = new System.Drawing.Point(181, 55);
+            this.KillKeyTextBox.MaxLength = 1;
+            this.KillKeyTextBox.Name = "KillKeyTextBox";
+            this.KillKeyTextBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.KillKeyTextBox.Size = new System.Drawing.Size(31, 22);
+            this.KillKeyTextBox.TabIndex = 24;
             // 
-            // label6
+            // MonitorKillKeyLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(141, 25);
-            this.label6.Name = "label6";
-            this.label6.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label6.Size = new System.Drawing.Size(115, 18);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Monitor Kill Key";
-            this.label6.Click += new System.EventHandler(this.Label6_Click);
+            this.MonitorKillKeyLabel.AutoSize = true;
+            this.MonitorKillKeyLabel.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MonitorKillKeyLabel.Location = new System.Drawing.Point(141, 25);
+            this.MonitorKillKeyLabel.Name = "MonitorKillKeyLabel";
+            this.MonitorKillKeyLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MonitorKillKeyLabel.Size = new System.Drawing.Size(115, 18);
+            this.MonitorKillKeyLabel.TabIndex = 23;
+            this.MonitorKillKeyLabel.Text = "Monitor Kill Key";
+            this.MonitorKillKeyLabel.Click += new System.EventHandler(this.MonitorKillKeyLabel_Click);
             // 
-            // label7
+            // ChooseFromAnActiveProcessesLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(236, 108);
-            this.label7.Name = "label7";
-            this.label7.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label7.Size = new System.Drawing.Size(121, 36);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "Choose From An \r\nActive Processes";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.ChooseFromAnActiveProcessesLabel.AutoSize = true;
+            this.ChooseFromAnActiveProcessesLabel.Font = new System.Drawing.Font("Footlight MT Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChooseFromAnActiveProcessesLabel.Location = new System.Drawing.Point(236, 108);
+            this.ChooseFromAnActiveProcessesLabel.Name = "ChooseFromAnActiveProcessesLabel";
+            this.ChooseFromAnActiveProcessesLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ChooseFromAnActiveProcessesLabel.Size = new System.Drawing.Size(117, 36);
+            this.ChooseFromAnActiveProcessesLabel.TabIndex = 26;
+            this.ChooseFromAnActiveProcessesLabel.Text = "Choose From An\r\nActive Processes";
+            this.ChooseFromAnActiveProcessesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ChooseFromAnActiveProcessesLabel.Click += new System.EventHandler(this.ChooseFromAnActiveProcessesLabel_Click);
             // 
-            // comboBox1
+            // MonitorNameComboBox
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(210, 163);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(170, 21);
-            this.comboBox1.Sorted = true;
-            this.comboBox1.TabIndex = 27;
-            this.comboBox1.DropDown += new System.EventHandler(this.ComboBox1_DropDown);
+            this.MonitorNameComboBox.Enabled = false;
+            this.MonitorNameComboBox.FormattingEnabled = true;
+            this.MonitorNameComboBox.Location = new System.Drawing.Point(210, 163);
+            this.MonitorNameComboBox.Name = "MonitorNameComboBox";
+            this.MonitorNameComboBox.Size = new System.Drawing.Size(170, 21);
+            this.MonitorNameComboBox.Sorted = true;
+            this.MonitorNameComboBox.TabIndex = 27;
+            this.MonitorNameComboBox.DropDown += new System.EventHandler(this.MonitorNameComboBox_DropDown);
             // 
             // AddTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 411);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.MonitorNameComboBox);
+            this.Controls.Add(this.ChooseFromAnActiveProcessesLabel);
+            this.Controls.Add(this.KillKeyTextBox);
+            this.Controls.Add(this.MonitorKillKeyLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.FrequencyNumericUpDown);
+            this.Controls.Add(this.LifeTimeNumericUpDown);
+            this.Controls.Add(this.ConfirmButton);
+            this.Controls.Add(this.MonitorNameTextBox);
+            this.Controls.Add(this.MonitoringFrequencyLabel);
+            this.Controls.Add(this.MaximumLifetimeLabel);
+            this.Controls.Add(this.TypeMonitorLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddTaskForm";
             this.Text = "Add Monitor";
-            this.Load += new System.EventHandler(this.AddTaskForm_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AddTaskForm_MouseClick);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FrequencyNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LifeTimeNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,16 +222,16 @@ namespace Pronitor
 
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.NumericUpDown FrequencyNumericUpDown;
+        private System.Windows.Forms.NumericUpDown LifeTimeNumericUpDown;
+        private System.Windows.Forms.Button ConfirmButton;
+        private System.Windows.Forms.TextBox MonitorNameTextBox;
+        private System.Windows.Forms.Label MonitoringFrequencyLabel;
+        private System.Windows.Forms.Label MaximumLifetimeLabel;
+        private System.Windows.Forms.Label TypeMonitorLabel;
+        private System.Windows.Forms.TextBox KillKeyTextBox;
+        private System.Windows.Forms.Label MonitorKillKeyLabel;
+        private System.Windows.Forms.Label ChooseFromAnActiveProcessesLabel;
+        private System.Windows.Forms.ComboBox MonitorNameComboBox;
     }
 }

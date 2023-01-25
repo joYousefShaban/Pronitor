@@ -1,6 +1,6 @@
 ﻿namespace Pronitor
 {
-    partial class MainMenu
+    partial class UIMainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            this.button1 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIMainMenu));
+            this.AddTaskButton = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,23 +39,23 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.KillAllTasksButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.DeleteAllMonitorsButton = new System.Windows.Forms.Button();
+            this.OpenLogButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // AddTaskButton
             // 
-            this.button1.Location = new System.Drawing.Point(26, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 45);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Add Task";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.AddTaskButton.Location = new System.Drawing.Point(26, 42);
+            this.AddTaskButton.Name = "AddTaskButton";
+            this.AddTaskButton.Size = new System.Drawing.Size(104, 45);
+            this.AddTaskButton.TabIndex = 8;
+            this.AddTaskButton.Text = "Add Task";
+            this.AddTaskButton.UseVisualStyleBackColor = true;
+            this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
             // 
             // dataGridView
             // 
@@ -145,15 +145,15 @@
             this.label1.Text = "Pronitor";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // button3
+            // KillAllTasksButton
             // 
-            this.button3.Location = new System.Drawing.Point(26, 198);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(104, 45);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Inactive / Kill\r\nAll Tasks";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.KillAllTasksButton.Location = new System.Drawing.Point(26, 198);
+            this.KillAllTasksButton.Name = "KillAllTasksButton";
+            this.KillAllTasksButton.Size = new System.Drawing.Size(104, 45);
+            this.KillAllTasksButton.TabIndex = 10;
+            this.KillAllTasksButton.Text = "Inactive / Kill\r\nAll Tasks";
+            this.KillAllTasksButton.UseVisualStyleBackColor = true;
+            this.KillAllTasksButton.Click += new System.EventHandler(this.KillAllTasksButton_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -161,10 +161,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.Controls.Add(this.button4, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.DeleteAllMonitorsButton, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.KillAllTasksButton, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.AddTaskButton, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.OpenLogButton, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(43, 56);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -177,25 +177,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(158, 393);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
-            // button4
+            // DeleteAllMonitorsButton
             // 
-            this.button4.Location = new System.Drawing.Point(26, 276);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(104, 45);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Delete All Monitors";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.DeleteAllMonitorsButton.Location = new System.Drawing.Point(26, 276);
+            this.DeleteAllMonitorsButton.Name = "DeleteAllMonitorsButton";
+            this.DeleteAllMonitorsButton.Size = new System.Drawing.Size(104, 45);
+            this.DeleteAllMonitorsButton.TabIndex = 11;
+            this.DeleteAllMonitorsButton.Text = "Delete All Monitors";
+            this.DeleteAllMonitorsButton.UseVisualStyleBackColor = true;
+            this.DeleteAllMonitorsButton.Click += new System.EventHandler(this.DeleteAllMonitorsButton_Click);
             // 
-            // button2
+            // OpenLogButton
             // 
-            this.button2.Location = new System.Drawing.Point(26, 120);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 45);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Open Log";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.OpenLogButton.Location = new System.Drawing.Point(26, 120);
+            this.OpenLogButton.Name = "OpenLogButton";
+            this.OpenLogButton.Size = new System.Drawing.Size(104, 45);
+            this.OpenLogButton.TabIndex = 12;
+            this.OpenLogButton.Text = "Open Log";
+            this.OpenLogButton.UseVisualStyleBackColor = true;
+            this.OpenLogButton.Click += new System.EventHandler(this.OpenLogButton_Click);
             // 
             // UIMainMenu
             // 
@@ -208,8 +208,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UIMainMenu";
             this.Text = "Pronitor";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_FormClosed);
-            this.Load += new System.EventHandler(this.MainMenu_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UIMainMenu_FormClosed);
+            this.Load += new System.EventHandler(this.UIMainMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -220,10 +220,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button AddTaskButton;
+        private System.Windows.Forms.Button KillAllTasksButton;
+        private System.Windows.Forms.Button DeleteAllMonitorsButton;
+        private System.Windows.Forms.Button OpenLogButton;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataGridViewButtonColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
