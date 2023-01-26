@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Pronitor
 {
-    public partial class AddTaskForm : Form
+    public partial class AddMonitorForm : Form
     {
         private readonly UIMainMenu UIMainMenu;
-        public AddTaskForm(UIMainMenu UIMainMenu)
+        public AddMonitorForm(UIMainMenu UIMainMenu)
         {
             InitializeComponent();
 
@@ -102,7 +102,7 @@ namespace Pronitor
         }
 
         // Switches between comboBox or textBox whenether is clicked
-        private void AddTaskForm_MouseClick(object sender, MouseEventArgs e)
+        private void AddMonitorForm_MouseClick(object sender, MouseEventArgs e)
         {
             if (MonitorNameComboBox.Bounds.Contains(PointToClient(Cursor.Position)))
             {

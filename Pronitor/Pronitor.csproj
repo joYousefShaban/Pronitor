@@ -84,11 +84,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="UI\AddTaskForm.cs">
+    <Compile Include="UI\AddMonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AddTaskForm.Designer.cs">
-      <DependentUpon>AddTaskForm.cs</DependentUpon>
+    <Compile Include="UI\AddMonitorForm.Designer.cs">
+      <DependentUpon>AddMonitorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainMenu.cs">
       <SubType>Form</SubType>
@@ -105,8 +105,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\AddTaskForm.resx">
-      <DependentUpon>AddTaskForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\AddMonitorForm.resx">
+      <DependentUpon>AddMonitorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

@@ -1,7 +1,7 @@
 ﻿
 namespace Pronitor
 {
-    partial class AddTaskForm
+    partial class AddMonitorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Pronitor
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddTaskForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddMonitorForm));
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.FrequencyNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -189,7 +189,7 @@ namespace Pronitor
             this.MonitorNameComboBox.TabIndex = 27;
             this.MonitorNameComboBox.DropDown += new System.EventHandler(this.MonitorNameComboBox_DropDown);
             // 
-            // AddTaskForm
+            // AddMonitorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -208,9 +208,9 @@ namespace Pronitor
             this.Controls.Add(this.MaximumLifetimeLabel);
             this.Controls.Add(this.TypeMonitorLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AddTaskForm";
+            this.Name = "AddMonitorForm";
             this.Text = "Add Monitor";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AddTaskForm_MouseClick);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AddMonitorForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.FrequencyNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LifeTimeNumericUpDown)).EndInit();
             this.ResumeLayout(false);

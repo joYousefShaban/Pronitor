@@ -20,7 +20,7 @@ namespace Pronitor.Logic
         public static bool Validator(string name, int lifeTime, int frequency)
         {
             if (!IsNameUnique(name))
-                throw new ArgumentException(name + "already exists!");
+                throw new ArgumentException(name + " already exists!");
             if (frequency <= 0)
             {
                 throw new ArgumentException("frequency can't be less that or equal zero!");
@@ -59,7 +59,7 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++) //kill all the tasks in the monitor
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "manual reason");
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "user instruction");
                     }
                     monitoringList[i].ScanTimer.Dispose();
                     monitoringList.RemoveAt(i);
@@ -81,12 +81,12 @@ namespace Pronitor.Logic
                 {
                     for (int j = 0; j < monitoringList[i].Tasks.Count; j++)
                     {
-                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "manual reason");
+                        monitoringList[i].KillTask(monitoringList[i].Tasks[j], "user instruction");
                     }
                 }
                 else if (monitoringList[i].Name.Equals(name) && monitoringList[i].Tasks.Count > 0)
                 {
-                    monitoringList[i].KillTask(monitoringList[i].Tasks[0], "manual reason"); //kill the first task for this monitor
+                    monitoringList[i].KillTask(monitoringList[i].Tasks[0], "user instruction"); //kill the first task for this monitor
                     break;
                 }
             }

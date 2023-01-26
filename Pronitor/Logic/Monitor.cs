@@ -47,20 +47,36 @@ namespace Pronitor.Logic
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             ScanProcesses();
+            ScanTasks();
         }
 
-        // Periodically scans the tasks in monitorList and checks if they are active in windows processes
+        // Periodically scans the processes in windows and checks if they are new active processes not listed in tasks
         private void ScanProcesses()
         {
             Process[] processlist = Process.GetProcesses();
             foreach (Process theprocess in processlist)
             {
-                if (theprocess.ProcessName.Equals(name) && tasks.Count >= 0 && !IsInTasks(theprocess.Id))
+                if (theprocess.ProcessName.Equals(name))
                 {
-                    tasks.Add(new Task(this, theprocess.Id));
-                    string message = Manager.MessageTemplate($"({name}) process with the ID ({theprocess.Id}) has been added \n new total active processes is: {tasks.Count}");
-                    Logger.LogWrite(message);
-                    Console.WriteLine(message);
+                    if (tasks.Count >= 0 && !IsInTasks(theprocess.Id))
+                    {
+                        tasks.Add(new Task(this, theprocess.Id));
+                        string message = Manager.MessageTemplate($"({name}) process with the ID ({theprocess.Id}) has been added \n new total active processes are: {tasks.Count}");
+                        Logger.LogWrite(message);
+                        Console.WriteLine(message);
+                    }
+                }
+            }
+        }
+
+        // Periodically scans the tasks in monitorList and checks if they are not active anymore in windows processes
+        private void ScanTasks()
+        {
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                if (!tasks[i].DoesProcessExist())
+                {
+                    KillTask(tasks[i], "not existing anymore");
                 }
             }
         }

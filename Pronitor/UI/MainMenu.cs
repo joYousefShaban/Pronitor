@@ -109,7 +109,7 @@ namespace Pronitor
                     }
                 }));
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }
@@ -153,17 +153,17 @@ namespace Pronitor
         }
 
         // Add task button click listner
-        private void AddTaskButton_Click(object sender, EventArgs e)
+        private void AddMonitorButton_Click(object sender, EventArgs e)
         {
-            AddTaskButton.Enabled = false;
-            if (Application.OpenForms.OfType<AddTaskForm>().Count() == 1)
-                Application.OpenForms.OfType<AddTaskForm>().First().Focus();
+            AddMonitorButton.Enabled = false;
+            if (Application.OpenForms.OfType<AddMonitorForm>().Count() == 1)
+                Application.OpenForms.OfType<AddMonitorForm>().First().Focus();
             else
             {
-                AddTaskForm addProcessForm = new AddTaskForm(this);
+                AddMonitorForm addProcessForm = new AddMonitorForm(this);
                 addProcessForm.Show();
             }
-            AddTaskButton.Enabled = true;
+            AddMonitorButton.Enabled = true;
         }
 
         // Open log button click listner

@@ -20,6 +20,7 @@ namespace Pronitor.ConsoleApplication
         // Prompts user for initial input
         public void Run()
         {
+            Console.Clear();
             Console.Write("Please enter your keyboard key to kill the utility => ");
             ConsoleKey killKey = Console.ReadKey().Key;
             Console.WriteLine();
@@ -54,7 +55,7 @@ namespace Pronitor.ConsoleApplication
                 }
                 else
                 {
-                    Console.WriteLine($"You just typed {CheckInput}, which is not an acceptable key.");
+                    Console.WriteLine($"You just pressed ({CheckInput}), which is not an acceptable key.");
                 }
                 InputReminder(killKey, enterUIKey);
                 CheckInput = Console.ReadKey(true).Key;
